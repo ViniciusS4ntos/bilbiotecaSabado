@@ -14,4 +14,6 @@ public interface LivroRepository extends JpaRepository<Livro, Integer> {
 
     List<Livro> findAllByCategoriaNome(String categoriaNome);
 
+    Boolean existsByTitulo(String titulo);
+
 }

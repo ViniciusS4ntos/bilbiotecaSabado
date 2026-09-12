@@ -18,6 +18,9 @@ public class LivroController {
     @Autowired
     private LivroService livroService;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
     @GetMapping("/{id}")
     public ResponseEntity<LivroDto> buscarPorId(@PathVariable Integer id) {
         Livro livro = livroService.buscarPorId(id);
@@ -37,21 +40,21 @@ public class LivroController {
 //        return ResponseEntity.ok().body(listDto);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         livroService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("")
+    public ResponseEntity<LivroDto> adicionarLivro(@RequestBody LivroDto dto){
+
+        Livro livro = livroService.adicionarLivro(
+                modelMapper.map(dto, Livro.class)
+        );
+
+        return ResponseEntity.ok(
+                modelMapper.map(livro, LivroDto.class)
+        );
     }
 }

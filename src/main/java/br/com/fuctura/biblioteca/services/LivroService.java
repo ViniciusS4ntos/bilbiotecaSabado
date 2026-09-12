@@ -1,6 +1,7 @@
 package br.com.fuctura.biblioteca.services;
 
 import br.com.fuctura.biblioteca.exceptions.ObjectNotFoundException;
+import br.com.fuctura.biblioteca.exceptions.ValidationErrors;
 import br.com.fuctura.biblioteca.models.Livro;
 import br.com.fuctura.biblioteca.repositories.LivroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,22 +34,17 @@ public class LivroService {
         return list;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public void delete(Integer id) {
         buscarPorId(id);
         livroRepository.deleteById(id);
+    }
+
+    public Livro adicionarLivro(Livro livro){
+        if (livroRepository.existsByTitulo(livro.getTitulo())){
+            throw new RuntimeException("Livro ja existente no banco de dados!");
+        }
+
+
+        return livroRepository.save(livro);
     }
 }

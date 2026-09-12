@@ -19,7 +19,7 @@ public class LivroDto {
     private String autor;
     private String texto;
     private Edicao edicao;
-    private Categoria categoria;
+    private Integer idCategoria;
 
     public LivroDto(Livro livro) {
         this.id = livro.getId();
@@ -27,6 +27,6 @@ public class LivroDto {
         this.autor = livro.getAutor();
         this.texto = livro.getTexto();
         this.edicao = livro.getEdicao();
-        this.categoria = livro.getCategoria();
+        this.idCategoria = livro.getCategoria().getId();
     }
 }
